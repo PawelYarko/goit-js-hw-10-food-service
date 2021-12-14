@@ -9,7 +9,7 @@ const bodyEl = document.querySelector('body');
 const cardsMarkup = createFoodCards(cards);
 menuEl.insertAdjacentHTML('beforeend', cardsMarkup);
 
-themeChangeEl.addEventListener('click', ClickThemeChange)
+themeChangeEl.addEventListener('click', ClickThemeChange);
 
   function createFoodCards(cards){
     return cardsTpl(cards);
@@ -20,29 +20,35 @@ themeChangeEl.addEventListener('click', ClickThemeChange)
       DARK: 'dark-theme',
   };
 
- function ClickThemeChange(e){
-    //  const savedDataLight = localStorage.getItem('LIGHT');
-    //  if(savedDataLight){
-    //      console.log(savedDataLight);
-    //  }
+  savedDataTheme();
 
+ function ClickThemeChange(e){  
+  if(e.target.checked === true){
+    localStorage.setItem('theme', Theme.DARK);
+    bodyEl.classList.remove(Theme.LIGHT);
+    
+  }
+  else if(e.target.checked === false){
+    localStorage.setItem('theme', Theme.LIGHT);
+    bodyEl.classList.remove(Theme.DARK);
+    
+  }
+  savedDataTheme();
+  }
 
-
-    if(themeChangeEl.checked){
-        const savedData = localStorage.getItem('LIGHT');
-        localStorage.removeItem('DARK');
-        bodyEl.classList.remove(Theme.DARK);
-        bodyEl.classList.add(Theme.LIGHT);
-        localStorage.setItem('LIGHT', 'light-theme');
-        console.log(parseData)
+  function savedDataTheme (){
+    const savedData = localStorage.getItem('theme');
+    if(savedData === Theme.DARK){
+      themeChangeEl.checked = true;
+      // bodyEl.classList.add(savedData);
+      console.log(savedData)
+  // console.log(themeChangeEl.checked)
     }
-    else {
-        localStorage.removeItem('LIGHT');
-        bodyEl.classList.remove(Theme.LIGHT);
-        bodyEl.classList.add(Theme.DARK);
-        localStorage.setItem('DARK', 'dark-theme');
-        
-    }
- }
+    bodyEl.classList.add(savedData);  
+  
+  }
+
+  
 
  
+
